@@ -14,6 +14,7 @@ namespace Application.Services
         where TDto : class
         where TCreationDto : class
         where TUpdateDto : class
+
     {
         private readonly string applicationHateoas = "application/hateoas+json";
         private readonly IEntityRepository<TEntity, TResourceParameters> _entityRepository;
