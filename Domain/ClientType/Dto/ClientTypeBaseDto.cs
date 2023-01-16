@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Domain.MenuType.Dto;
+namespace Domain.ClientType.Dto;
 
-public abstract class MenuTypeBaseDto
+public abstract class ClientTypeBaseDto
 {
     [Required(ErrorMessage = Labels.provideANameValue)]
     [MaxLength(50)]

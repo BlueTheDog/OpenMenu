@@ -1,11 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using Domain.Abstracts;
 using Domain.Location;
 
-namespace Domain.MenuType;
+namespace Domain.ClientType;
 
-public class MenuTypeEntity : BaseEntity
+public class ClientTypeEntity : BaseEntity
 {
 
     [Required]
@@ -14,11 +13,11 @@ public class MenuTypeEntity : BaseEntity
 
     public ICollection<LocationEntity> Locations { get; set; } = new List<LocationEntity>();
 
-    public MenuTypeEntity(string name)
+    public ClientTypeEntity(string name)
     {
         Name = name;
     }
-    public MenuTypeEntity()
+    public ClientTypeEntity()
     {
 
     }

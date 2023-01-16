@@ -9,7 +9,7 @@ public class LocationBaseDto : IValidatableObject
     public virtual string Description { get; set; } = string.Empty;
 
     [Required(ErrorMessage = Labels.provideANameValue)]
-    public int MenuTypeId { get; set; }
+    public int ClientTypeId { get; set; }
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
@@ -17,7 +17,7 @@ public class LocationBaseDto : IValidatableObject
         {
             yield return new ValidationResult(
                 Labels.descriptionMustBeDifferentFromName,
-                new[] { "Location" }); //??
+                new[] { "Location" });
         }
     }
 }

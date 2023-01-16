@@ -1,19 +1,18 @@
-﻿using Application.Helpers;
-using Application.Location;
-using Application.Services;
+﻿using Application.Services;
 using Common.Helpers;
-using Domain.Location.Dto;
 using Domain.Location;
 using Domain.ResourceParameters;
 using Infrastructure.DbContexts;
+using Application.Helpers;
+using Domain.Location.Dto;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repository;
-
-public class LocationRepository : ILocationRepository
+internal class LocationRepository : IEntityRepository<LocationEntity, LocationResourceParameters>
 {
     private readonly IOpenMenuContext _dbContext;
     private readonly IPropertyMappingService _propertyMappingService;
+
     public LocationRepository(IOpenMenuContext dbContext, IPropertyMappingService propertyMappingService)
     {
         _dbContext = dbContext ??
@@ -21,8 +20,28 @@ public class LocationRepository : ILocationRepository
         _propertyMappingService = propertyMappingService ??
             throw new ArgumentNullException(nameof(propertyMappingService));
     }
-    public async Task<PagedList<LocationEntity>> GetLocationsAsync(
-            LocationResourceParameters locationResourceParameters)
+
+    public async Task<IEnumerable<LocationEntity>> GetEntitiesAsync(IEnumerable<int> locationIds)
+    {
+        if (locationIds == null)
+        {
+            throw new ArgumentNullException(nameof(locationIds));
+        }
+        var collection = _dbContext.Locations as IQueryable<LocationEntity>;
+        collection = collection
+            .Where(a => locationIds.Contains(a.Id))
+            .OrderBy(a => a.Name);
+        return await collection
+            .ToListAsync();
+    }
+    public async Task<LocationEntity> GetLocationAsync(int LocationId)
+    {
+#pragma warning disable CS8603
+        return await _dbContext.Locations.FindAsync(LocationId);
+#pragma warning restore CS8603
+    }
+
+    public async Task<PagedList<LocationEntity>> GetEntitiesAsync(LocationResourceParameters locationResourceParameters)
     {
         if (locationResourceParameters == null)
         {
@@ -49,53 +68,39 @@ public class LocationRepository : ILocationRepository
             locationResourceParameters.PageSize);
     }
 
-    public async Task<IEnumerable<LocationEntity>> GetLocationsAsync(
-        IEnumerable<int> locationIds)
+    public async Task<LocationEntity> GetEntityAsync(int locationId)
     {
-        if (locationIds == null)
-        {
-            throw new ArgumentNullException(nameof(locationIds));
-        }
-        var collection = _dbContext.Locations as IQueryable<LocationEntity>;
-        collection = collection
-            .Where(a => locationIds.Contains(a.Id))
-            .OrderBy(a => a.Name);
-        return await collection
-            .ToListAsync();
-    }
-    public async Task<LocationEntity> GetLocationAsync(int LocationId)
-    {
+
 #pragma warning disable CS8603
-        // fix this maybe :)
-        return await _dbContext.Locations.FindAsync(LocationId);
+        return await _dbContext.Locations.FindAsync(locationId);
 #pragma warning restore CS8603
     }
 
-    public void AddLocation(LocationEntity locationEntity)
+    public void AddEntity(LocationEntity location)
     {
-        if (locationEntity == null)
+        if (location == null)
         {
-            throw new ArgumentNullException(nameof(locationEntity));
+            throw new ArgumentNullException(nameof(location));
         }
-        _dbContext.Locations.Add(locationEntity);
+        _dbContext.Locations.Add(location);
     }
 
-    public void DeleteLocation(LocationEntity locationEntity)
+    public void DeleteEntity(LocationEntity location)
     {
-        if (locationEntity == null)
+        if (location == null)
         {
-            throw new ArgumentNullException(nameof(locationEntity));
+            throw new ArgumentNullException(nameof(location));
         }
-        _dbContext.Locations.Remove(locationEntity);
+        _dbContext.Locations.Remove(location);
     }
-    public async Task<bool> LocationExists(int LocationId)
+
+    public async Task<bool> EntityExistsAsync(int locationId)
     {
-        return await _dbContext.Locations.AnyAsync(c => c.Id == LocationId);
+        return await _dbContext.Locations.AnyAsync(c => c.Id == locationId);
     }
 
     public async Task<bool> SaveChangesAsync()
     {
         return await _dbContext.SaveChangesAsync() >= 0;
     }
-
 }

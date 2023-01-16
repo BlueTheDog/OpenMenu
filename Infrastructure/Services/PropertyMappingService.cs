@@ -1,10 +1,14 @@
 ﻿
 using Application.Services;
 using Common.Helpers;
+using Domain.ClientType;
+using Domain.ClientType.Dto;
 using Domain.Location;
 using Domain.Location.Dto;
-using Domain.MenuType;
-using Domain.MenuType.Dto;
+using Domain.MenuItem;
+using Domain.MenuItem.Dto;
+using Domain.MenuItemType;
+using Domain.MenuItemType.Dto;
 
 namespace Infrastructure.Services;
 
@@ -24,9 +28,13 @@ public class PropertyMappingService : IPropertyMappingService
 
     public PropertyMappingService()
     {
-        _propertyMappings.Add(new PropertyMapping<MenuTypeDto, MenuTypeEntity>(
+        _propertyMappings.Add(new PropertyMapping<ClientTypeDto, ClientTypeEntity>(
             _propertiesMapping));
         _propertyMappings.Add(new PropertyMapping<LocationDto, LocationEntity>(
+            _propertiesMapping));
+        _propertyMappings.Add(new PropertyMapping<MenuItemTypeDto, MenuItemTypeEntity>(
+            _propertiesMapping));
+        _propertyMappings.Add(new PropertyMapping<MenuItemDto, MenuItemEntity>(
             _propertiesMapping));
     }
 

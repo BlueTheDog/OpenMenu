@@ -9,7 +9,7 @@
 //using Microsoft.AspNetCore.JsonPatch;
 
 //namespace Application.Location;
-//public class LocationService : IBaseEntityService<LocationEntity, LocationResourceParameters, LocationDto, LocationForCreationDto, LocationForUpdateDto>
+//public class LocationService : ILocationService
 //{
 //    private readonly string applicationHateoas = "application/hateoas+json";
 //    private readonly ILocationRepository _locationRepository;
@@ -205,7 +205,6 @@
 //    }
 
 //    // Helper Methods
-    
 //    private void ValidateOrderBy(LocationResourceParameters resourceParameters)
 //    {
 //        // Validate OrderBy string
@@ -223,103 +222,5 @@
 //        {
 //            throw new DataShapingCustomException();
 //        }
-//    }
-
-//    public async Task<(object?, PaginationMetadataDto)> GetEntitiesAsync(
-//        LocationResourceParameters locationResourceParameters, 
-//        string mediaType)
-//    {
-//        ValidateOrderBy(locationResourceParameters);
-//        ValidateFields(locationResourceParameters.Fields!);
-
-//        var locationsFromService = await _locationRepository.GetLocationsAsync(locationResourceParameters);
-//        var locations = locationsFromService;
-//        if (mediaType == applicationHateoas)
-//        {
-//            var links = _hateoasHelper.CreateLinksForResources(
-//                "LocationsController",
-//                locationResourceParameters,
-//                locationsFromService!.HasNext,
-//                locationsFromService.HasPrevious);
-
-//            var shapedLocations = _mapper.Map<IEnumerable<LocationDto>>(locationsFromService)
-//                .ShapeData(locationResourceParameters.Fields);
-
-//            var shapedLocationsWithLinks = shapedLocations.Select(location =>
-//            {
-//                var locationAsDictionary = location as IDictionary<string, object?>;
-//                var locationLinks = _hateoasHelper.CreateLinkForResource(
-//                    "LocationsController",
-//                    (int)locationAsDictionary["Id"]!,
-//                    locationResourceParameters.Fields);
-//                locationAsDictionary.Add("links", locationLinks);
-//                return locationAsDictionary;
-//            });
-//            var linkedCollectionResource = new
-//            {
-//                value = shapedLocationsWithLinks,
-//                links
-//            };
-//            return (linkedCollectionResource, PaginationHelper.CreatePaginationMetadata(locations));
-//        }
-//        var locationsToReturn = _mapper.Map<IEnumerable<LocationDto>>(locations)
-//            .ShapeData(locationResourceParameters.Fields);
-//        return (locationsToReturn, PaginationHelper.CreatePaginationMetadata(locations));
-
-//    }
-
-//    public Task<IEnumerable<LocationEntity>> GetEntitiesAsync(IEnumerable<int> entityIds)
-//    {
-//        throw new NotImplementedException();
-//    }
-
-//    public Task<object> GetEntityAsync(LocationResourceParameters resourceParameters, int entityId, string mediaType)
-//    {
-//        throw new NotImplementedException();
-//    }
-
-//    public Task<IEnumerable<LocationDto>> GetEntityCollection(IEnumerable<int> entityIds)
-//    {
-//        throw new NotImplementedException();
-//    }
-
-//    public Task<(IEnumerable<LocationDto>, string)> CreateEntityCollection(IEnumerable<LocationForCreationDto> entityCollection)
-//    {
-//        throw new NotImplementedException();
-//    }
-
-//    public void AddEntity(LocationEntity entity)
-//    {
-//        throw new NotImplementedException();
-//    }
-
-//    public Task<LocationDto> AddEntity(LocationForCreationDto creationDto)
-//    {
-//        throw new NotImplementedException();
-//    }
-
-//    public Task UpdateEntity(LocationForUpdateDto updateDto, int resourceId)
-//    {
-//        throw new NotImplementedException();
-//    }
-
-//    public Task PartiallyUpdateEntity(JsonPatchDocument<LocationForUpdateDto> entityToPatch, int resourceId)
-//    {
-//        throw new NotImplementedException();
-//    }
-
-//    public Task DeleteEntity(int resourceId)
-//    {
-//        throw new NotImplementedException();
-//    }
-
-//    public Task<bool> EntityExists(int entityId)
-//    {
-//        throw new NotImplementedException();
-//    }
-
-//    public Task<bool> DeleteEntityAsync(LocationEntity entity)
-//    {
-//        throw new NotImplementedException();
 //    }
 //}

@@ -12,12 +12,6 @@ public class HateoasHelper : IHateoasHelper
     {
         _urlHelper = urlHelper;
     }
-
-    public LinkDto GetLink(string routeName, object routeValues, string rel, string method)
-    {
-        string href = _urlHelper.Link(routeName, routeValues)!;
-        return new LinkDto(href, rel, method);
-    }
     public string? CreateResourceUri(
         string resource,
         ResourceParameters resourceParameters,
@@ -69,8 +63,8 @@ public class HateoasHelper : IHateoasHelper
         bool hasNext,
         bool hasPrevious)
     {
-        var singleResource = resource.Replace("sController", "").Trim();
-        var resources = resource.Replace("Controller", "").Trim();
+        var singleResource = resource.Replace("Entity", "").Trim();
+        var resources = $"{singleResource}s".Trim();
         var links = new List<LinkDto>
             {
                 // self
@@ -105,7 +99,7 @@ public class HateoasHelper : IHateoasHelper
         int resourceId,
         string? fields)
     {
-        resource = resource.Replace("sController", "").Trim();
+        resource = resource.Replace("Entity", "").Trim();
         var links = new List<LinkDto>();
 
         if (string.IsNullOrWhiteSpace(fields))

@@ -1,6 +1,6 @@
-﻿namespace Domain.MenuType.Dto;
+﻿namespace Domain.MenuItemType.Dto;
 
-public class MenuTypeDto : MenuTypeBaseDto
+public class MenuItemTypeDto : MenuItemTypeBaseDto
 {
     public int Id { get; set; }
     public string LastModified { get; set; } = null!;

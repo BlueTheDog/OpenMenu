@@ -1,13 +1,18 @@
-﻿using Application.Location;
-using Application.MenuType;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
+﻿using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Application.Services;
+using Application.Location;
 using Domain.Location.Dto;
 using Domain.Location;
 using Domain.ResourceParameters;
+using Domain.ClientType.Dto;
+using Domain.ClientType;
+using Application.ClientType;
+using Domain.MenuItemType;
+using Domain.MenuItemType.Dto;
+using Application.MenuItemType;
 
 namespace Application;
 public static class DependencyInjection
@@ -21,11 +26,17 @@ public static class DependencyInjection
             return factory.GetUrlHelper(actionContext);
         });
 
-        services.AddTransient<IHateoasHelper, HateoasHelper>();
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+        services.AddTransient<IHateoasHelper, HateoasHelper>();
 
-        services.AddScoped<ILocationService ,LocationService>();
-        //services.AddScoped<IMenuTypeService, MenuTypeService>();
+        services.AddScoped<IEntityService<LocationEntity, LocationResourceParameters, LocationDto,
+            LocationForCreationDto, LocationForUpdateDto>, LocationService>();
+
+        services.AddScoped<IEntityService<ClientTypeEntity, ClientTypeResourceParameters, ClientTypeDto,
+            ClientTypeForCreationDto, ClientTypeForUpdateDto>, ClientTypeService>();
+
+        services.AddScoped<IEntityService<MenuItemTypeEntity, MenuItemTypeResourceParameters, MenuItemTypeDto,
+            MenuItemTypeForCreationDto, MenuItemTypeForUpdateDto>, MenuItemTypeService>();
         return services;
     }
 }
