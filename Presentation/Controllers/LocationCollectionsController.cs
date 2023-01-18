@@ -1,5 +1,5 @@
-﻿using Application.Services;
-using Domain.Location.Dto;
+﻿using Application.Services.Location;
+using Domain.Entities.Location.Dto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers;

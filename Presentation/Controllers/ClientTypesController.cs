@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.JsonPatch;
 using Common.Exceptions;
 using Domain.ResourceParameters;
 using Application.ClientType;
-using Domain.ClientType.Dto;
-using Domain.ClientType;
-using Application.Location;
+using Application.Services.Entity;
+using Domain.Entities.ClientType.Dto;
+using Domain.Entities.ClientType;
 
 namespace Infrastructure.Controllers
 {

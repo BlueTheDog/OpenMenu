@@ -1,7 +1,7 @@
 ﻿using Application.Helpers;
 using AutoMapper;
-using Domain.ClientType;
-using Domain.ClientType.Dto;
+using Domain.Entities.ClientType;
+using Domain.Entities.ClientType.Dto;
 
 namespace Presentation.Profiles;
 

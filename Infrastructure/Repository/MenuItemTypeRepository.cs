@@ -1,11 +1,12 @@
-﻿using Application.Services;
-using Common.Helpers;
+﻿using Common.Helpers;
 using Domain.ResourceParameters;
 using Infrastructure.DbContexts;
 using Application.Helpers;
 using Microsoft.EntityFrameworkCore;
-using Domain.MenuItemType;
-using Domain.MenuItemType.Dto;
+using Application.Services.Entity;
+using Application.Interfaces.Property;
+using Domain.Entities.MenuItemType.Dto;
+using Domain.Entities.MenuItemType;
 
 namespace Infrastructure.Repository;
 internal class MenuItemTypeRepository : IEntityRepository<MenuItemTypeEntity, MenuItemTypeResourceParameters>

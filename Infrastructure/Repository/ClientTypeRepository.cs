@@ -1,11 +1,12 @@
-﻿using Application.Services;
-using Common.Helpers;
+﻿using Common.Helpers;
 using Domain.ResourceParameters;
 using Infrastructure.DbContexts;
 using Application.Helpers;
 using Microsoft.EntityFrameworkCore;
-using Domain.ClientType;
-using Domain.ClientType.Dto;
+using Application.Services.Entity;
+using Application.Interfaces.Property;
+using Domain.Entities.ClientType.Dto;
+using Domain.Entities.ClientType;
 
 namespace Infrastructure.Repository;
 internal class ClientTypeRepository : IEntityRepository<ClientTypeEntity, ClientTypeResourceParameters>

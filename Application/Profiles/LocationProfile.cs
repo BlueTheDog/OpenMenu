@@ -1,7 +1,7 @@
 ﻿using Application.Helpers;
 using AutoMapper;
-using Domain.Location;
-using Domain.Location.Dto;
+using Domain.Entities.Location;
+using Domain.Entities.Location.Dto;
 
 namespace Presentation.Profiles;
 

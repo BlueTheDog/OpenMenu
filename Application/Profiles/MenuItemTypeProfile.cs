@@ -1,7 +1,7 @@
 ﻿using Application.Helpers;
 using AutoMapper;
-using Domain.MenuItemType;
-using Domain.MenuItemType.Dto;
+using Domain.Entities.MenuItemType;
+using Domain.Entities.MenuItemType.Dto;
 
 namespace Presentation.Profiles;
 

@@ -1,14 +1,13 @@
-﻿
-using Application.Services;
+﻿using Application.Interfaces.Property;
 using Common.Helpers;
-using Domain.ClientType;
-using Domain.ClientType.Dto;
-using Domain.Location;
-using Domain.Location.Dto;
-using Domain.MenuItem;
-using Domain.MenuItem.Dto;
-using Domain.MenuItemType;
-using Domain.MenuItemType.Dto;
+using Domain.Entities.ClientType;
+using Domain.Entities.ClientType.Dto;
+using Domain.Entities.Location;
+using Domain.Entities.Location.Dto;
+using Domain.Entities.MenuItem;
+using Domain.Entities.MenuItem.Dto;
+using Domain.Entities.MenuItemType;
+using Domain.Entities.MenuItemType.Dto;
 
 namespace Infrastructure.Services;
 

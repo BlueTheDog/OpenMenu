@@ -4,9 +4,9 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 using Microsoft.AspNetCore.JsonPatch;
 using Common.Exceptions;
 using Domain.ResourceParameters;
-using Domain.MenuItem.Dto;
-using Application.Location;
-using Domain.MenuItem;
+using Application.Services.Entity;
+using Domain.Entities.MenuItem.Dto;
+using Domain.Entities.MenuItem;
 
 namespace Infrastructure.Controllers
 {

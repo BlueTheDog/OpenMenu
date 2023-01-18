@@ -1,6 +1,6 @@
-﻿using Application.ClientType;
+﻿using Application.Services.ClientType;
 using AutoMapper;
-using Domain.ClientType.Dto;
+using Domain.Entities.ClientType.Dto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers

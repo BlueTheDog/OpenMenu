@@ -1,11 +1,12 @@
-﻿using Application.Services;
-using Common.Helpers;
-using Domain.Location;
+﻿using Common.Helpers;
 using Domain.ResourceParameters;
 using Infrastructure.DbContexts;
 using Application.Helpers;
-using Domain.Location.Dto;
 using Microsoft.EntityFrameworkCore;
+using Application.Services.Entity;
+using Application.Interfaces.Property;
+using Domain.Entities.Location.Dto;
+using Domain.Entities.Location;
 
 namespace Infrastructure.Repository;
 internal class LocationRepository : IEntityRepository<LocationEntity, LocationResourceParameters>

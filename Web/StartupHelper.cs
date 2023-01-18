@@ -1,6 +1,6 @@
 ﻿using Application;
 using Common;
-using Domain;
+using Domain.Helpers;
 using Hellang.Middleware.ProblemDetails;
 using Infrastructure;
 using Infrastructure.DbContexts;

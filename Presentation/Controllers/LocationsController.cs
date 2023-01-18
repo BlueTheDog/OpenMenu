@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Headers;
 using JsonSerializer = System.Text.Json.JsonSerializer;
-using Domain.Location.Dto;
-using Domain.Location;
 using Microsoft.AspNetCore.JsonPatch;
 using Common.Exceptions;
 using Domain.ResourceParameters;
 using Application.Services;
-using Application.Location;
+using Application.Services.Entity;
+using Domain.Entities.Location.Dto;
+using Domain.Entities.Location;
 
 namespace Infrastructure.Controllers
 {
