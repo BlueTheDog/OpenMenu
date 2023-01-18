@@ -1,1 +1,2 @@
-﻿namespace Domain.ClientType.Dto; public class ClientTypeForUpdateDto : ClientTypeBaseDto { }
+﻿namespace Domain.ClientType.Dto; 
+public class ClientTypeForUpdateDto : ClientTypeBaseDto { }

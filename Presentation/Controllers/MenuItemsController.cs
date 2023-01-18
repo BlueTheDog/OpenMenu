@@ -11,7 +11,7 @@ using Domain.MenuItem;
 namespace Infrastructure.Controllers
 {
     [ApiController]
-    [Route("api/menuitemtypes")]
+    [Route("api/menuitems")]
     public class MenuItemsController : ControllerBase
     {
 

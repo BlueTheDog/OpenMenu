@@ -13,6 +13,12 @@ using Application.ClientType;
 using Domain.MenuItemType;
 using Domain.MenuItemType.Dto;
 using Application.MenuItemType;
+using Domain.Client;
+using Domain.Client.Dto;
+using Application.Client;
+using Domain.MenuItem;
+using Application.MenuItem;
+using Domain.MenuItem.Dto;
 
 namespace Application;
 public static class DependencyInjection
@@ -25,16 +31,17 @@ public static class DependencyInjection
             var factory = x.GetRequiredService<IUrlHelperFactory>();
             return factory.GetUrlHelper(actionContext);
         });
-
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         services.AddTransient<IHateoasHelper, HateoasHelper>();
 
-        services.AddScoped<IEntityService<LocationEntity, LocationResourceParameters, LocationDto,
-            LocationForCreationDto, LocationForUpdateDto>, LocationService>();
-
+        services.AddScoped<IEntityService<ClientEntity, ClientResourceParameters, ClientDto,
+            ClientForCreationDto, ClientForUpdateDto>, ClientService>();
         services.AddScoped<IEntityService<ClientTypeEntity, ClientTypeResourceParameters, ClientTypeDto,
             ClientTypeForCreationDto, ClientTypeForUpdateDto>, ClientTypeService>();
-
+        services.AddScoped<IEntityService<LocationEntity, LocationResourceParameters, LocationDto,
+            LocationForCreationDto, LocationForUpdateDto>, LocationService>();
+        services.AddScoped<IEntityService<MenuItemEntity, MenuItemResourceParameters, MenuItemDto,
+            MenuItemForCreationDto, MenuItemForUpdateDto>, MenuItemService>();
         services.AddScoped<IEntityService<MenuItemTypeEntity, MenuItemTypeResourceParameters, MenuItemTypeDto,
             MenuItemTypeForCreationDto, MenuItemTypeForUpdateDto>, MenuItemTypeService>();
         return services;

@@ -1,4 +1,5 @@
 ﻿using Application.Services;
+using Domain.Client;
 using Domain.ClientType;
 using Domain.Location;
 using Domain.MenuItem;
@@ -17,10 +18,11 @@ public static class DependencyInjection
         // DbContext
         services.AddScoped<IOpenMenuContext, OpenMenuContext>();
         // Repositories
-        services.AddScoped<IEntityRepository<LocationEntity, LocationResourceParameters>, LocationRepository>();
+        services.AddScoped<IEntityRepository<ClientEntity, ClientResourceParameters>, ClientRepository>();
         services.AddScoped<IEntityRepository<ClientTypeEntity, ClientTypeResourceParameters>, ClientTypeRepository>();
-        services.AddScoped<IEntityRepository<MenuItemTypeEntity, MenuItemTypeResourceParameters>, MenuItemTypeRepository>();
+        services.AddScoped<IEntityRepository<LocationEntity, LocationResourceParameters>, LocationRepository>();
         services.AddScoped<IEntityRepository<MenuItemEntity, MenuItemResourceParameters>, MenuItemRepository>();
+        services.AddScoped<IEntityRepository<MenuItemTypeEntity, MenuItemTypeResourceParameters>, MenuItemTypeRepository>();
         // Custom property mapping service
         services.AddTransient<IPropertyMappingService, PropertyMappingService>();
         // Property checker service

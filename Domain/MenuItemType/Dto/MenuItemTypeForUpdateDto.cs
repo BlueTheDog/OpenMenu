@@ -1,1 +1,2 @@
-﻿namespace Domain.MenuItemType.Dto; public class MenuItemTypeForUpdateDto : MenuItemTypeBaseDto { }
+﻿namespace Domain.MenuItemType.Dto; 
+public class MenuItemTypeForUpdateDto : MenuItemTypeBaseDto { }

@@ -6,12 +6,12 @@ namespace Domain.ClientType;
 
 public class ClientTypeEntity : BaseEntity
 {
-
     [Required]
     [MaxLength(50)]
     public string Name { get; set; } = null!;
 
-    public ICollection<LocationEntity> Locations { get; set; } = new List<LocationEntity>();
+    public ICollection<LocationEntity> Locations { get; set; } 
+        = new List<LocationEntity>();
 
     public ClientTypeEntity(string name)
     {

@@ -1,10 +1,12 @@
 ﻿using Domain;
 using Domain.Abstracts;
+using Domain.Client;
 using Domain.ClientType;
 using Domain.Location;
 using Domain.MenuItem;
 using Domain.MenuItemType;
 using Microsoft.EntityFrameworkCore;
+using System.Numerics;
 
 namespace Infrastructure.DbContexts;
 
@@ -15,11 +17,11 @@ public class OpenMenuContext : DbContext, IOpenMenuContext
     {
 
     }
+    public DbSet<ClientEntity> Clients { get; set; } = null!;
     public DbSet<ClientTypeEntity> ClientTypes { get; set; } = null!;
     public DbSet<LocationEntity> Locations { get; set; } = null!;
     public DbSet<MenuItemTypeEntity> MenuItemTypes { get; set; } = null!;
     public DbSet<MenuItemEntity> MenuItems { get; set; } = null!;
-
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         foreach (var modificationHistory in this.ChangeTracker.Entries()
@@ -40,12 +42,11 @@ public class OpenMenuContext : DbContext, IOpenMenuContext
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-
         modelBuilder.Entity<MenuItemTypeEntity>()
             .HasMany(item => item.MenuItems)
             .WithMany(item => item.MenuItemTypes)
             .UsingEntity(j => j.HasData(
-                new { MenuItemsId = 1, MenuItemTypesId = 1 },
+                new { MenuItemTypesId = 1, MenuItemsId = 1 },
                 new { MenuItemTypesId = 2, MenuItemsId = 2 },
                 new { MenuItemTypesId = 1, MenuItemsId = 3 },
                 new { MenuItemTypesId = 4, MenuItemsId = 4 },
@@ -86,7 +87,7 @@ public class OpenMenuContext : DbContext, IOpenMenuContext
                 DateModified = DateTime.UtcNow
             });
 
-        modelBuilder.Entity<MenuItemEntity>().HasData( 
+        modelBuilder.Entity<MenuItemEntity>().HasData(
             new MenuItemEntity
             {
                 Id = 1,
@@ -152,10 +153,72 @@ public class OpenMenuContext : DbContext, IOpenMenuContext
                 DateModified = DateTime.UtcNow
             }
             );
+        modelBuilder.Entity<ClientEntity>().HasData(
+            new ClientEntity()
+            {
+                Id = 1,
+                Name = "5ToGo",
+                Description = "Cafenelele 5 to go",
+                Email = "contact@5togo.ro",
+                Phone = "0761.000.000",
+                DateModified = DateTime.UtcNow,
+                DateCreated = new DateTime(2022, 4, 20)
+            },
+            new ClientEntity()
+            {
+                Id = 2,
+                Name = "Starbucks",
+                Description = "Cafenelele Starbucks",
+                Email = "contact@starbucks.ro",
+                Phone = "0761.111.111",
+                DateModified = DateTime.UtcNow,
+                DateCreated = new DateTime(2022, 4, 20)
+            }, new ClientEntity()
+            {
+                Id = 3,
+                Name = "MartyRestaurants",
+                Description = "Restaurantele Marty",
+                Email = "contact@martycluj.ro",
+                Phone = "0761.222.222",
+                DateModified = DateTime.UtcNow,
+                DateCreated = new DateTime(2022, 4, 20)
+            },
+            new ClientEntity()
+            {
+                Id = 4,
+                Name = "Dacia Service",
+                Description = "Dacia Service description",
+                Email = "contact@dacia.ro",
+                Phone = "0761.333.333",
+                DateModified = DateTime.UtcNow,
+                DateCreated = new DateTime(2022, 4, 20)
+            },
+            new ClientEntity()
+            {
+                Id = 5,
+                Name = "Boulevard",
+                Description = "Mancare cu suflet",
+                Email = "contact@boulevard.ro",
+                Phone = "0761.444.444",
+                DateModified = DateTime.UtcNow,
+                DateCreated = new DateTime(2022, 4, 20)
+            },
+            new ClientEntity()
+            {
+                Id = 6,
+                Name = "TiriacSerices",
+                Description = "Avioanele, ca am mai multe.",
+                Email = "contact@tiriac.ro",
+                Phone = "0761.666.666",
+                DateModified = DateTime.UtcNow,
+                DateCreated = new DateTime(2022, 4, 20)
+            }
+            );
         modelBuilder.Entity<LocationEntity>().HasData(
             new LocationEntity("5ToGo XL")
             {
                 Id = 1,
+                ClientId = 1,
                 ClientTypeId = 2,
                 Description = "La 5 to go folosim o cafea cu o aromă intensă, corpolentă , cremoasă ce se constituie într-un blend unic, creat special pentru lanţul de cafenele 5 to go.",
                 DateCreated = new DateTime(2022, 01, 20),
@@ -164,30 +227,25 @@ public class OpenMenuContext : DbContext, IOpenMenuContext
             new LocationEntity("Starbucks")
             {
                 Id = 2,
+                ClientId = 2,
                 ClientTypeId = 2,
                 Description = "Starbucks Corporation is an American multinational chain of coffeehouses and roastery reserves headquartered in Seattle, Washington. ",
                 DateCreated = new DateTime(2022, 02, 20),
                 DateModified = DateTime.UtcNow
             },
-            new LocationEntity("NarCoffee")
+            new LocationEntity("5ToGo Hunedoara")
             {
                 Id = 3,
+                ClientId = 1,
                 ClientTypeId = 2,
                 Description = "Colaborăm şi susţinem ferme care respectă fructul de cafea, dar mai mult, respectă oamenii implicaţi în povestea cafelei.",
                 DateCreated = new DateTime(2022, 03, 20),
                 DateModified = DateTime.UtcNow
             },
-            new LocationEntity("Cafetarie")
-            {
-                Id = 4,
-                ClientTypeId = 2,
-                Description = "O cafea arabica, aromata, tare. Cam tot ce aștepți de la o cafea. Plus ca ii ajuți și pe micii fermieri cumpărând-o. ",
-                DateCreated = new DateTime(2022, 04, 20),
-                DateModified = DateTime.UtcNow
-            },
             new LocationEntity("Marty Restaurants")
             {
                 Id = 5,
+                ClientId = 3,
                 ClientTypeId = 1,
                 Description = "Cele șase locații Marty Restaurants sunt asemănătoare în esență, dar fiecare dintre ele propune o atmosferă unică. ",
                 DateCreated = new DateTime(2022, 05, 20),
@@ -196,29 +254,16 @@ public class OpenMenuContext : DbContext, IOpenMenuContext
             new LocationEntity("Boulevard")
             {
                 Id = 6,
+                ClientId = 5,
                 ClientTypeId = 1,
                 Description = "Mereu delicios",
                 DateCreated = new DateTime(2022, 06, 20),
                 DateModified = DateTime.UtcNow
             },
-            new LocationEntity("Curtea Veche")
-            {
-                Id = 7,
-                ClientTypeId = 1,
-                Description = "Mâncarea e delicioasa, ca la mama acasă, proaspătă și servita fără întârziere.",
-                DateCreated = new DateTime(2022, 07, 20),
-                DateModified = DateTime.UtcNow
-            },
-            new LocationEntity("Casa Romaneasca")
-            {
-                Id = 8,
-                ClientTypeId = 1,
-                DateCreated = new DateTime(2022, 08, 20),
-                DateModified = DateTime.UtcNow
-            },
             new LocationEntity("Dacia Service")
             {
                 Id = 9,
+                ClientId = 4,
                 ClientTypeId = 3,
                 DateCreated = new DateTime(2022, 09, 20),
                 DateModified = DateTime.UtcNow
@@ -226,6 +271,7 @@ public class OpenMenuContext : DbContext, IOpenMenuContext
             new LocationEntity("Renault Service")
             {
                 Id = 10,
+                ClientId = 4,
                 ClientTypeId = 3,
                 DateCreated = new DateTime(2022, 10, 20),
                 DateModified = DateTime.UtcNow
@@ -233,6 +279,7 @@ public class OpenMenuContext : DbContext, IOpenMenuContext
             new LocationEntity("Mercedes Service")
             {
                 Id = 11,
+                ClientId = 6,
                 ClientTypeId = 3,
                 DateCreated = new DateTime(2022, 11, 20),
                 DateModified = DateTime.UtcNow
@@ -240,6 +287,7 @@ public class OpenMenuContext : DbContext, IOpenMenuContext
             new LocationEntity("BMW Service")
             {
                 Id = 12,
+                ClientId = 6,
                 ClientTypeId = 3,
                 DateCreated = new DateTime(2022, 12, 01),
                 DateModified = DateTime.UtcNow
@@ -247,36 +295,9 @@ public class OpenMenuContext : DbContext, IOpenMenuContext
             new LocationEntity("Tesla Service")
             {
                 Id = 13,
+                ClientId = 6,
                 ClientTypeId = 3,
                 DateCreated = new DateTime(2022, 12, 02),
-                DateModified = DateTime.UtcNow
-            },
-            new LocationEntity("Cafeneaua de la colt")
-            {
-                Id = 14,
-                ClientTypeId = 2,
-                DateCreated = new DateTime(2022, 04, 20),
-                DateModified = DateTime.UtcNow
-            },
-            new LocationEntity("Happy Beans")
-            {
-                Id = 15,
-                ClientTypeId = 2,
-                DateCreated = new DateTime(2022, 04, 20),
-                DateModified = DateTime.UtcNow
-            },
-            new LocationEntity("All u can eat")
-            {
-                Id = 16,
-                ClientTypeId = 1,
-                DateCreated = new DateTime(2022, 04, 20),
-                DateModified = DateTime.UtcNow
-            },
-            new LocationEntity("Moldovan")
-            {
-                Id = 17,
-                ClientTypeId = 1,
-                DateCreated = new DateTime(2022, 04, 20),
                 DateModified = DateTime.UtcNow
             }
         );
