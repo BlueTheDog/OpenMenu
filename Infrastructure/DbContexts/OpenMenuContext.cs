@@ -1,12 +1,10 @@
-﻿using Domain;
-using Domain.Abstracts;
+﻿using Domain.Abstracts;
 using Domain.Entities.Client;
 using Domain.Entities.ClientType;
 using Domain.Entities.Location;
 using Domain.Entities.MenuItem;
 using Domain.Entities.MenuItemType;
 using Microsoft.EntityFrameworkCore;
-using System.Numerics;
 
 namespace Infrastructure.DbContexts;
 

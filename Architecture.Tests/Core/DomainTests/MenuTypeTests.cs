@@ -1,80 +1,78 @@
-﻿using System.Collections.Generic;
-using Domain.Location;
-using System.ComponentModel.DataAnnotations;
-using Domain.MenuType;
+﻿using System.ComponentModel.DataAnnotations;
 using FluentAssertions;
-using Xunit;
+using Domain.Entities.Location;
+using Domain.Entities.ClientType;
 
-namespace OpenMenu.Tests.Core.DomainTests;
-public class MenuTypeTests
+namespace OpenClient.Tests.Core.DomainTests;
+public class ClientTypeTests
 {
     [Fact]
-    public void ShouldCreateMenuTypeEntityWithName()
+    public void ShouldCreateClientTypeEntityWithName()
     {
         // Arrange
         string name = "Pizza";
 
         // Act
-        var menuType = new Domain.MenuType.MenuTypeEntity(name);
+        var clientType = new ClientTypeEntity(name);
 
         // Assert
-        menuType.Name.Should().Be(name);
+        clientType.Name.Should().Be(name);
     }
 
     [Fact]
-    public void ShouldCreateMenuTypeEntityWithEmptyName()
+    public void ShouldCreateClientTypeEntityWithEmptyName()
     {
         // Arrange
         string name = "";
 
         // Act
-        var menuType = new Domain.MenuType.MenuTypeEntity(name);
+        var clientType = new ClientTypeEntity(name);
 
         // Assert
-        menuType.Name.Should().Be(name);
+        clientType.Name.Should().Be(name);
     }
 
     [Fact]
-    public void ShouldCreateMenuTypeEntityWithLocations()
+    public void ShouldCreateClientTypeEntityWithLocations()
     {
         // Arrange
         string name = "Pizza";
-        var locations = new List<Domain.Location.LocationEntity>()
+        var locations = new List<LocationEntity>()
             {
-                new Domain.Location.LocationEntity("Chicago"),
-                new Domain.Location.LocationEntity("New York")
+                new LocationEntity("Chicago"),
+                new LocationEntity("New York")
             };
 
         // Act
-        var menuType = new Domain.MenuType.MenuTypeEntity(name);
-        menuType.Locations = locations;
+        var clientType = new ClientTypeEntity(name);
+        clientType.Locations = locations;
 
         // Assert
-        menuType.Locations.Should().BeEquivalentTo(locations);
+        clientType.Locations.Should().BeEquivalentTo(locations);
     }
 
     [Fact]
-    public void ShouldCreateMenuTypeEntityWithoutLocations()
+    public void ShouldCreateClientTypeEntityWithoutLocations()
     {
         // Arrange
         string name = "Pizza";
 
         // Act
-        var menuType = new Domain.MenuType.MenuTypeEntity(name);
+        var clientType = new ClientTypeEntity(name);
 
         // Assert
-        menuType.Locations.Should().BeEmpty();
+        clientType.Locations.Should().BeEmpty();
     }
     [Fact]
-    public void MenuTypeEntity_ShouldHaveRequiredName()
+    public void ClientTypeEntity_ShouldHaveRequiredName()
     {
         // Arrange
-        var menuTypeEntity = new Domain.MenuType.MenuTypeEntity();
+        var clientTypeEntity = new ClientTypeEntity();
 
         // Act
-        var validationContext = new ValidationContext(menuTypeEntity, null, null);
+        var validationContext = new ValidationContext(clientTypeEntity, null, null);
         var validationResults = new List<ValidationResult>();
-        var isValid = Validator.TryValidateObject(menuTypeEntity, validationContext, validationResults, true);
+        var isValid = Validator.TryValidateObject(clientTypeEntity, validationContext, validationResults, true);
 
         // Assert
         isValid.Should().BeFalse();
@@ -82,30 +80,30 @@ public class MenuTypeTests
     }
 
     [Fact]
-    public void MenuTypeEntity_ShouldHaveNameWithMaximumLengthOf50()
+    public void ClientTypeEntity_ShouldHaveNameWithMaximumLengthOf50()
     {
         // Arrange
-        var menuTypeEntity = new Domain.MenuType.MenuTypeEntity { Name = new string('*', 51) };
+        var clientTypeEntity = new ClientTypeEntity { Name = new string('*', 51) };
 
         // Act
-        var validationContext = new ValidationContext(menuTypeEntity, null, null);
+        var validationContext = new ValidationContext(clientTypeEntity, null, null);
         var validationResults = new List<ValidationResult>();
-        var isValid = Validator.TryValidateObject(menuTypeEntity, validationContext, validationResults, true);
+        var isValid = Validator.TryValidateObject(clientTypeEntity, validationContext, validationResults, true);
 
         // Assert
         isValid.Should().BeFalse();
     }
 
     [Fact]
-    public void MenuTypeEntity_ShouldBeValid_WhenNameIsProvided()
+    public void ClientTypeEntity_ShouldBeValid_WhenNameIsProvided()
     {
         // Arrange
-        var menuTypeEntity = new Domain.MenuType.MenuTypeEntity { Name = "Menu Type" };
+        var clientTypeEntity = new ClientTypeEntity { Name = "Client Type" };
 
         // Act
-        var validationContext = new ValidationContext(menuTypeEntity, null, null);
+        var validationContext = new ValidationContext(clientTypeEntity, null, null);
         var validationResults = new List<ValidationResult>();
-        var isValid = Validator.TryValidateObject(menuTypeEntity, validationContext, validationResults, true);
+        var isValid = Validator.TryValidateObject(clientTypeEntity, validationContext, validationResults, true);
 
         // Assert
         isValid.Should().BeTrue();
@@ -113,23 +111,23 @@ public class MenuTypeTests
     }
 
     [Fact]
-    public void MenuTypeEntity_ShouldInitializeLocationsCollection()
+    public void ClientTypeEntity_ShouldInitializeLocationsCollection()
     {
         // Arrange & Act
-        var menuTypeEntity = new Domain.MenuType.MenuTypeEntity();
+        var clientTypeEntity = new ClientTypeEntity();
 
         // Assert
-        menuTypeEntity.Locations.Should().NotBeNull();
-        menuTypeEntity.Locations.Should().BeEmpty();
+        clientTypeEntity.Locations.Should().NotBeNull();
+        clientTypeEntity.Locations.Should().BeEmpty();
     }
 
     [Fact]
-    public void MenuTypeEntity_ShouldHaveLocationsPropertyOfTypeICollection()
+    public void ClientTypeEntity_ShouldHaveLocationsPropertyOfTypeICollection()
     {
         // Arrange & Act
-        var menuTypeEntity = new Domain.MenuType.MenuTypeEntity();
+        var clientTypeEntity = new ClientTypeEntity();
 
         // Assert
-        menuTypeEntity.Locations.Should().BeAssignableTo<ICollection<MenuTypeEntity>>();
+        clientTypeEntity.Locations.Should().BeAssignableTo<ICollection<ClientTypeEntity>>();
     }
 }

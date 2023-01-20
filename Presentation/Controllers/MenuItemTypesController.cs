@@ -4,7 +4,6 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 using Microsoft.AspNetCore.JsonPatch;
 using Common.Exceptions;
 using Domain.ResourceParameters;
-using Application.MenuItemType;
 using Application.Services.Entity;
 using Domain.Entities.MenuItemType.Dto;
 using Domain.Entities.MenuItemType;

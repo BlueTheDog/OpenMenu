@@ -4,7 +4,6 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 using Microsoft.AspNetCore.JsonPatch;
 using Common.Exceptions;
 using Domain.ResourceParameters;
-using Application.ClientType;
 using Application.Services.Entity;
 using Domain.Entities.ClientType.Dto;
 using Domain.Entities.ClientType;

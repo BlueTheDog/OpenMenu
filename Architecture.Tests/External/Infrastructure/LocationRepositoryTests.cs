@@ -1,9 +1,5 @@
-﻿using Application.Location;
-using Application.Services;
-using Common.Contracts;
+﻿using Application.Services;
 using Common.Helpers;
-using Domain.Location;
-using Domain.Location.Dto;
 using FluentAssertions;
 using Infrastructure.DbContexts;
 using Infrastructure.Repository;
