@@ -1,5 +1,7 @@
 ﻿using Application.Interfaces.Property;
 using Common.Helpers;
+using Domain.Entities.Client;
+using Domain.Entities.Client.Dto;
 using Domain.Entities.ClientType;
 using Domain.Entities.ClientType.Dto;
 using Domain.Entities.Location;
@@ -27,6 +29,8 @@ public class PropertyMappingService : IPropertyMappingService
 
     public PropertyMappingService()
     {
+        _propertyMappings.Add(new PropertyMapping<ClientDto, ClientEntity>(
+            _propertiesMapping));
         _propertyMappings.Add(new PropertyMapping<ClientTypeDto, ClientTypeEntity>(
             _propertiesMapping));
         _propertyMappings.Add(new PropertyMapping<LocationDto, LocationEntity>(
