@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 /Web/OpenMenu.db-shm
 /Web/OpenMenu.db-wal
+/Web/OpenMenu.db
