@@ -96,6 +96,15 @@ public static class StartupHelper
         builder.Services.AddInfrastructure();
         builder.Services.AddCommon();
         builder.Services.AddPresentation();
+        builder.Services.AddAuthentication("Bearer")
+           .AddJwtBearer("Bearer", opt =>
+           {
+               opt.RequireHttpsMetadata = false;
+               opt.Authority = "https://localhost:5001";
+               opt.Audience = "companyApi";
+           });
+        builder.Services.AddControllers();
+
         return builder.Build();
     }
 
@@ -126,8 +135,9 @@ public static class StartupHelper
         app.UseHttpsRedirection();
         app.UseResponseCaching();
         //app.UseHttpCacheHeaders();
+        app.UseAuthentication();
+        app.UseRouting();
         app.UseAuthorization();
-
         app.MapControllers();
         return app;
     }

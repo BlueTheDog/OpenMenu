@@ -7,6 +7,7 @@ using Domain.ResourceParameters;
 using Application.Services.Entity;
 using Domain.Entities.Location.Dto;
 using Domain.Entities.Location;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Infrastructure.Controllers
 {
@@ -57,6 +58,8 @@ namespace Infrastructure.Controllers
         /// <param name="locationResourceParameters">The parameters to filter the location.</param>
         /// <param name="mediaType">The media type of the response.</param>
         /// <returns>The location matching the provided id.</returns>
+        /// 
+        [Authorize]
         [HttpGet("{resourceId}", Name = "GetLocation")]
         public async Task<IActionResult> GetLocation(
             int resourceId,
