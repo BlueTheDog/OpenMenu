@@ -4,6 +4,7 @@ using Domain.Helpers;
 using Hellang.Middleware.ProblemDetails;
 using Infrastructure;
 using Infrastructure.DbContexts;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
@@ -103,6 +104,7 @@ public static class StartupHelper
                opt.Authority = "https://localhost:5001";
                opt.Audience = "companyApi";
            });
+
         builder.Services.AddControllers();
 
         return builder.Build();
@@ -135,11 +137,26 @@ public static class StartupHelper
         app.UseHttpsRedirection();
         app.UseResponseCaching();
         //app.UseHttpCacheHeaders();
-        app.UseAuthentication();
-        app.UseRouting();
-        app.UseAuthorization();
-        app.MapControllers();
-        return app;
+
+
+		app.UseHttpsRedirection();
+		app.UseStaticFiles();
+
+		app.UseCors("CorsPolicy");
+
+		app.UseForwardedHeaders(new ForwardedHeadersOptions
+		{
+			ForwardedHeaders = ForwardedHeaders.All
+		});
+		app.UseRouting();
+		app.UseAuthentication();
+		app.UseAuthorization();
+		//app.MapControllers();
+		app.UseEndpoints(endpoints =>
+		{
+			endpoints.MapControllers();
+		});
+		return app;
     }
     public static async Task ResetDatabaseAsync(this WebApplication app)
     {

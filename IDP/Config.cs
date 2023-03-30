@@ -30,7 +30,22 @@ public static class Config
         new Client[] 
             {
                 new Client
-               {
+                {
+                    ClientId = "BlazorAdminUI",
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequirePkce = true,
+                    RequireClientSecret = false,
+                    AllowedCorsOrigins = { "https://localhost:5020" },
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile
+                    },
+                    RedirectUris = { "https://localhost:5020/authentication/login-callback" },
+                    PostLogoutRedirectUris = { "https://localhost:5020/authentication/logout-callback" }
+                },
+                new Client
+                {
                     ClientId = "client",
                     ClientSecrets = { new Secret("client".Sha512()) },
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPasswordAndClientCredentials,
@@ -42,7 +57,7 @@ public static class Config
                     }
                 },
                 new Client
-               {
+                {
                     ClientId = "client2",
                     ClientSecrets = { new Secret("client2".Sha512()) },
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPasswordAndClientCredentials,

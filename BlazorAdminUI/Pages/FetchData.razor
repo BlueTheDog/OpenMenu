@@ -1,0 +1,33 @@
+@page "/fetchdata"
+@using Microsoft.AspNetCore.Authorization;
+@attribute [Authorize]
+
+<h1>Locations</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+@if (_locations == null)
+{
+	<p><em>Loading...</em></p>
+}
+else
+{
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Name</th>
+				<th>Address (F)</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var company in _locations)
+			{
+				<tr>
+					<td>@company.Id</td>
+					<td>@company.Name</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
